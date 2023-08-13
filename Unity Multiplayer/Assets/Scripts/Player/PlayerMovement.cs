@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -14,9 +15,36 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private float movementSpeed = 4f;
     [SerializeField] private float turningRate = 30f;
 
+    private Vector2 previousMovementInput;
+
     public override void OnNetworkSpawn()
     {
-        base.OnNetworkSpawn();
+        if (!IsOwner) { return; }
+
+        inputReader.MoveEvent += HandleMove;
     }
 
+    public override void OnNetworkDespawn()
+    {
+        if (!IsOwner) { return; }
+
+        inputReader.MoveEvent -= HandleMove;
+    }
+
+    private void Update()
+    {
+        if (!IsOwner) { return; }
+        float zRotate = previousMovementInput.x * (-turningRate) * Time.deltaTime;
+        bodyTransform.Rotate(0f, 0f, zRotate);
+    }
+
+    private void FixedUpdate() {
+        if (!IsOwner) { return;}  
+        rb.velocity = movementSpeed * previousMovementInput.y * (Vector2)bodyTransform.up;
+    }
+
+    private void HandleMove(Vector2 movementInput)
+    {
+        previousMovementInput = movementInput;
+    }
 }
