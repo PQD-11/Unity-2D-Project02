@@ -13,12 +13,14 @@ public class ProjectileLauncher : NetworkBehaviour
     [SerializeField] private GameObject clientProjectilePrefab;
     [SerializeField] private GameObject spark;
     [SerializeField] private Collider2D playerCollider;
+    [SerializeField] private CoinWallet coinWallet;
 
 
     [Header("Settings")]
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float fireRate;
     [SerializeField] private float sparkDuration;
+    [SerializeField] private int costToFire;
 
     private bool shouldFire;
     private float previousFireTime;
@@ -60,6 +62,8 @@ public class ProjectileLauncher : NetworkBehaviour
 
         if (Time.time < (1 / fireRate) + previousFireTime) { return; }
 
+        if (coinWallet.TotalCoins.Value < costToFire) { return; }
+
         PrimaryFireServerRpc(projectileSpawnPoint.position, projectileSpawnPoint.up);
 
         SpawnProjectile(projectileSpawnPoint.position, projectileSpawnPoint.up);
@@ -70,7 +74,12 @@ public class ProjectileLauncher : NetworkBehaviour
     [ServerRpc]
     private void PrimaryFireServerRpc(Vector3 spawnPos, Vector3 direction)
     {
-        Debug.Log("Server");
+        // Debug.Log("Server");
+
+        if (coinWallet.TotalCoins.Value < costToFire) { return; }
+
+        coinWallet.SpendCoins(costToFire);
+
         GameObject projectileInstance = Instantiate(
             serverProjectilePrefab,
             spawnPos,
@@ -79,6 +88,11 @@ public class ProjectileLauncher : NetworkBehaviour
         projectileInstance.transform.up = direction;
 
         Physics2D.IgnoreCollision(playerCollider, projectileInstance.GetComponent<Collider2D>());
+
+        if (projectileInstance.TryGetComponent<DealDamageOnContact>(out DealDamageOnContact dealDame))
+        {
+            dealDame.SetOwner(OwnerClientId);
+        }
 
         if (projectileInstance.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
         {
@@ -94,7 +108,7 @@ public class ProjectileLauncher : NetworkBehaviour
         if (IsOwner) { return; }
 
         SpawnProjectile(spawnPos, direction);
-        Debug.Log("SpawnProjectileClientRpc");
+        // Debug.Log("SpawnProjectileClientRpc");
 
     }
     private void SpawnProjectile(Vector3 spawnPos, Vector3 direction)
@@ -102,7 +116,7 @@ public class ProjectileLauncher : NetworkBehaviour
         spark.SetActive(true);
         sparkTimer = sparkDuration;
 
-        Debug.Log("SpawnProjectile");
+        // Debug.Log("SpawnProjectile");
         GameObject projectileInstance = Instantiate(
             clientProjectilePrefab,
             spawnPos,

@@ -26,6 +26,7 @@ public class Health : NetworkBehaviour
     public void TakeDamage(int damageValue)
     {
         ModifyHealth(-damageValue);
+        Debug.Log("ID Tank: " + this.OwnerClientId);
     }
 
     public void RestoreHealth(int healthValue)
