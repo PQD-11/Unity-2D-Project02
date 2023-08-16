@@ -18,7 +18,7 @@ public class CoinSpawner : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (!IsServer) { return; }
-
+        Debug.Log("In");
         coinRadius = coinPrefab.GetComponent<CircleCollider2D>().radius;
         
         for (int i = 0; i < maxCoins; i++)
