@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -15,6 +16,7 @@ using UnityEngine.SceneManagement;
 
 public class HostGameManager
 {
+    private NetworkServer networkServer;
     private Allocation allocation;
     private string joinCode;
     private const int MaxConnections = 10;
@@ -60,7 +62,9 @@ public class HostGameManager
                     )
                 }
             };
-            Lobby lobby = await Lobbies.Instance.CreateLobbyAsync("My Lobby", MaxConnections, lobbyOptions);
+            string UserData = PlayerPrefs.GetString(NameCreate.PlayerNameKey, "Unknown");
+
+            Lobby lobby = await Lobbies.Instance.CreateLobbyAsync($"{UserData}'s Lobby", MaxConnections, lobbyOptions);
 
             HostSingleton.Instance.StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 15));
         }
@@ -69,6 +73,18 @@ public class HostGameManager
             Debug.Log(e);
             return;
         }
+
+        networkServer = new NetworkServer(NetworkManager.Singleton);
+
+        UserData userData = new UserData
+        {
+            UserName = PlayerPrefs.GetString(NameCreate.PlayerNameKey, "Missing Name")
+        };
+
+        string payload = JsonUtility.ToJson(userData);
+        byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
+
+        NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
 
         NetworkManager.Singleton.StartHost();
         NetworkManager.Singleton.SceneManager.LoadScene(GameSceneName, LoadSceneMode.Single);

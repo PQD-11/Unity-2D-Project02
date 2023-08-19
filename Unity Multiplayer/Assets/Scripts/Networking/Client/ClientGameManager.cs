@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -53,6 +54,16 @@ public class ClientGameManager
 
         RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");   
         unityTransport.SetRelayServerData(relayServerData);
+
+        UserData userData = new UserData
+        {
+            UserName = PlayerPrefs.GetString(NameCreate.PlayerNameKey, "Missing Name")
+        };
+
+        string payload = JsonUtility.ToJson(userData);
+        byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
+
+        NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
 
         NetworkManager.Singleton.StartClient(); 
     }

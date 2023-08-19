@@ -13,6 +13,8 @@ public class NameCreate : MonoBehaviour
     [SerializeField] private int minNameLenght = 1;
     [SerializeField] private int maxNameLenght = 15;
 
+    public const string PlayerNameKey = "PlayerName";
+
     private void Start()
     {
         if (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null)
@@ -21,7 +23,7 @@ public class NameCreate : MonoBehaviour
             return;
         }
 
-        nameField.text = PlayerPrefs.GetString("PlayerName", string.Empty);
+        nameField.text = PlayerPrefs.GetString(PlayerNameKey, string.Empty);
         HandleChangeName();
     }
 
