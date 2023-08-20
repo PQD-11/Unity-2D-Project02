@@ -14,11 +14,12 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
-public class HostGameManager
+public class HostGameManager : IDisposable
 {
     private NetworkServer networkServer;
     private Allocation allocation;
     private string joinCode;
+    private string lobbyId;
     private const int MaxConnections = 10;
     private const string GameSceneName = "Game";
     public async Task StartHostAsync()
@@ -65,8 +66,8 @@ public class HostGameManager
             string UserData = PlayerPrefs.GetString(NameCreate.PlayerNameKey, "Unknown");
 
             Lobby lobby = await Lobbies.Instance.CreateLobbyAsync($"{UserData}'s Lobby", MaxConnections, lobbyOptions);
-
-            HostSingleton.Instance.StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 15));
+            lobbyId = lobby.Id;
+            HostSingleton.Instance.StartCoroutine(HeartbeatLobbyCoroutine(lobbyId, 15));
         }
         catch (LobbyServiceException e)
         {
@@ -99,5 +100,26 @@ public class HostGameManager
             Lobbies.Instance.SendHeartbeatPingAsync(lobbyID);
             yield return delay;
         }
+    }
+
+    public async void Dispose()
+    {
+        HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobbyCoroutine));
+
+        if (!string.IsNullOrEmpty(lobbyId))
+        {
+            try
+            {
+                await Lobbies.Instance.DeleteLobbyAsync(lobbyId);
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+
+            }
+            lobbyId = string.Empty;
+        }
+
+        networkServer?.Dispose();
     }
 }
