@@ -15,7 +15,7 @@ public class Health : NetworkBehaviour
 
     private bool isDead;
 
-    private Action<Health> OnDie;
+    public Action<Health> OnDie;
 
     public override void OnNetworkSpawn()
     {

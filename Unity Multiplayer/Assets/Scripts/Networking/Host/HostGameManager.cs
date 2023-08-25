@@ -16,7 +16,7 @@ using UnityEngine.SceneManagement;
 
 public class HostGameManager : IDisposable
 {
-    private NetworkServer networkServer;
+    public NetworkServer NetworkServer {get; private set;}
     private Allocation allocation;
     private string joinCode;
     private string lobbyId;
@@ -75,11 +75,11 @@ public class HostGameManager : IDisposable
             return;
         }
 
-        networkServer = new NetworkServer(NetworkManager.Singleton);
+        NetworkServer = new NetworkServer(NetworkManager.Singleton);
 
         UserData userData = new UserData
         {
-            UserName = PlayerPrefs.GetString(NameCreate.PlayerNameKey, "Missing Name")
+            userName = PlayerPrefs.GetString(NameCreate.PlayerNameKey, "Missing Name")
         };
 
         string payload = JsonUtility.ToJson(userData);
@@ -120,6 +120,6 @@ public class HostGameManager : IDisposable
             lobbyId = string.Empty;
         }
 
-        networkServer?.Dispose();
+        NetworkServer?.Dispose();
     }
 }

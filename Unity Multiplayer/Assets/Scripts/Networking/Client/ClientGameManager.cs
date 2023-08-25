@@ -61,8 +61,8 @@ public class ClientGameManager : IDisposable
 
         UserData userData = new UserData
         {
-            UserName = PlayerPrefs.GetString(NameCreate.PlayerNameKey, "Missing Name"),
-            UserAuthId = AuthenticationService.Instance.PlayerId
+            userName = PlayerPrefs.GetString(NameCreate.PlayerNameKey, "Missing Name"),
+            userAuthId = AuthenticationService.Instance.PlayerId
         };
 
         string payload = JsonUtility.ToJson(userData);
