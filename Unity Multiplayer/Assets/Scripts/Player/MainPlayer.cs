@@ -21,12 +21,10 @@ public class MainPlayer : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        Debug.Log("Calllll");
         if (IsServer)
         {
             UserData userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
 
-            Debug.Log("userData" + userData);
             PlayerName.Value = userData.userName;
             OnPlayerSpawned?.Invoke(this);
         }

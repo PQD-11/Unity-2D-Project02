@@ -101,17 +101,17 @@ public class LeaderBoard : NetworkBehaviour
             entityDisplays[i].gameObject.SetActive(i <= entitiesToDisplay - 1);
         }
 
-        // LeaderBoardEntityDisplay myDisplay = 
-        //     entityDisplays.FirstOrDefault(x => x.ClientId == NetworkManager.Singleton.LocalClientId);
+        LeaderBoardEntityDisplay myDisplay = 
+            entityDisplays.FirstOrDefault(x => x.ClientId == NetworkManager.Singleton.LocalClientId);
         
-        // if (myDisplay != null)
-        // {
-        //     if (myDisplay.transform.GetSiblingIndex() >= entitiesToDisplay)
-        //     {
-        //         leaderboardEntityHolder.GetChild(entitiesToDisplay - 1).gameObject.SetActive(false);
-        //         myDisplay.gameObject.SetActive(true);
-        //     }
-        // }
+        if (myDisplay != null)
+        {
+            if (myDisplay.transform.GetSiblingIndex() >= entitiesToDisplay)
+            {
+                leaderboardEntityHolder.GetChild(entitiesToDisplay - 1).gameObject.SetActive(false);
+                myDisplay.gameObject.SetActive(true);
+            }
+        }
     }
 
     private void HandlePlayerSpawned(MainPlayer player)

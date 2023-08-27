@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &538931519861593504
+--- !u!1001 &8053002677582395005
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,13 +8,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 193866886897145155, guid: fba4834a062286a41b8e8d769228788e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7bfd0a0977e81b84a8f1d12195e5883a, type: 3}
+    - target: {fileID: 193866886897145155, guid: fba4834a062286a41b8e8d769228788e, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 193866886897145155, guid: fba4834a062286a41b8e8d769228788e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.972549
+      objectReference: {fileID: 0}
+    - target: {fileID: 193866886897145155, guid: fba4834a062286a41b8e8d769228788e, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 856520486041235290, guid: fba4834a062286a41b8e8d769228788e, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 951099334
       objectReference: {fileID: 0}
     - target: {fileID: 2898350792602766207, guid: fba4834a062286a41b8e8d769228788e, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2898350792602766207, guid: fba4834a062286a41b8e8d769228788e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7012173950722638106, guid: fba4834a062286a41b8e8d769228788e, type: 3}
       propertyPath: m_Name
-      value: RespawningCoin
+      value: BountyCoin
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -66,20 +82,36 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7012173950722638106, guid: fba4834a062286a41b8e8d769228788e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3992684689467792289}
+      addedObject: {fileID: 4770652391093762196}
+    - targetCorrespondingSourceObject: {fileID: 7012173950722638106, guid: fba4834a062286a41b8e8d769228788e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8204188189323264069}
   m_SourcePrefab: {fileID: 100100000, guid: fba4834a062286a41b8e8d769228788e, type: 3}
---- !u!1 &7361859625019151546 stripped
+--- !u!1 &1049967954214745959 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7012173950722638106, guid: fba4834a062286a41b8e8d769228788e, type: 3}
-  m_PrefabInstance: {fileID: 538931519861593504}
+  m_PrefabInstance: {fileID: 8053002677582395005}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3992684689467792289
+--- !u!114 &4770652391093762196
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7361859625019151546}
+  m_GameObject: {fileID: 1049967954214745959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc5120f7e7956e4ab2546b87b079da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 7886581044397630270}
+--- !u!114 &-8204188189323264069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049967954214745959}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
@@ -103,3 +135,8 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 0
   SlerpPosition: 0
+--- !u!212 &7886581044397630270 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 193866886897145155, guid: fba4834a062286a41b8e8d769228788e, type: 3}
+  m_PrefabInstance: {fileID: 8053002677582395005}
+  m_PrefabAsset: {fileID: 0}

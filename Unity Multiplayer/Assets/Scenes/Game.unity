@@ -636,7 +636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909a29329e7fab54588e3cf5dfe4b3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefabs: {fileID: 6442621835558392449, guid: ffb2d51356ec7814b8c0e2bf06815794, type: 3}
+  playerPrefabs: {fileID: 2580204677769457197, guid: ffb2d51356ec7814b8c0e2bf06815794, type: 3}
+  keptCoinPercentage: 50
 --- !u!4 &557869508
 Transform:
   m_ObjectHideFlags: 0
@@ -841,11 +842,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a1343e9def4494d9bd44746168e355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinPrefab: {fileID: -8794562959249142254, guid: d151b03198a176841827d62c8a0099b8, type: 3}
+  coinPrefab: {fileID: 1285996775731323908, guid: d151b03198a176841827d62c8a0099b8, type: 3}
   maxCoins: 50
   coinValue: 10
-  xSpawnRange: {x: -50, y: 50}
-  ySpawnRange: {x: -50, y: 50}
+  xSpawnRange: {x: -20, y: 20}
+  ySpawnRange: {x: -20, y: 20}
   layerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -975,6 +976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leaderboardEntityHolder: {fileID: 1326262376}
   leaderboardEntityPrefab: {fileID: 1474221663153420500, guid: 33e3c519bc060d54cac5dedf46367ad5, type: 3}
+  entitiesToDisplay: 8
 --- !u!114 &1214903302
 MonoBehaviour:
   m_ObjectHideFlags: 0
