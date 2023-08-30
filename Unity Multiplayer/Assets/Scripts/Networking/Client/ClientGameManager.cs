@@ -56,7 +56,7 @@ public class ClientGameManager : IDisposable
 
         UnityTransport unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
 
-        RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");   
+        RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
         unityTransport.SetRelayServerData(relayServerData);
 
         UserData userData = new UserData
@@ -70,11 +70,18 @@ public class ClientGameManager : IDisposable
 
         NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
 
-        NetworkManager.Singleton.StartClient(); 
+        NetworkManager.Singleton.StartClient();
+    }
+
+    public void Disconnecct()
+    {
+        networkClient.Disconnect();
     }
 
     public void Dispose()
     {
         networkClient?.Dispose();
     }
+
+
 }

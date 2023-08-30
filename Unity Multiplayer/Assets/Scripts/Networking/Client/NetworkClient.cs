@@ -21,11 +21,17 @@ public class NetworkClient : IDisposable
     {
         // Debug.Log("clientId: " + clientId);
         // Debug.Log("networkManager.LocalClientId: " + networkManager.LocalClientId);
-        // if (clientId != 0 && clientId != networkManager.LocalClientId) { return; }
+        if (clientId != 0 && clientId != networkManager.LocalClientId) { return; }
+        Disconnect();
+    }
+
+    public void Disconnect()
+    {
         if (SceneManager.GetActiveScene().name != MenuSceneName)
         {
             SceneManager.LoadScene(MenuSceneName);
         }
+
         if (networkManager.IsConnectedClient)
         {
             networkManager.Shutdown();

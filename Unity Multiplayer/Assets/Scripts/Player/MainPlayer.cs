@@ -9,7 +9,9 @@ using UnityEngine;
 public class MainPlayer : NetworkBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private SpriteRenderer minimapIoconRenderer;
     [SerializeField] private int ownerPriority = 15;
+    [SerializeField] private Color ownerColour;
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public CoinWallet Wallet { get; private set; }
 
@@ -32,6 +34,8 @@ public class MainPlayer : NetworkBehaviour
         if (IsOwner)
         {
             virtualCamera.Priority = ownerPriority;
+
+            minimapIoconRenderer.color = ownerColour;
         }
     }
 
